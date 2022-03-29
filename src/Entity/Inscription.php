@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Employe;
 use App\Repository\InscriptionRepository;
 use Doctrine\ORM\Mapping as ORM;
 

@@ -190,11 +190,33 @@ class EmployeController extends AbstractController
     }
 
     /**
+     * @Route("/afficheLesFormationEmployer/{id}", name="app_emp_form")
+     */
+    public function afficheLesFormationEmployer($id)
+    {
+        $inscription = $this->getDoctrine()->getRepository(Inscription::class)->findBy(
+            [
+                'employe' => $id
+            ]
+        );
+
+        if (!$inscription){
+            $message = "Inscrit dans aucune formation";
+        }
+        else{
+            $message = null;
+        }
+
+        return $this->render('employe/listeformationemp.html.twig',array('ensInscription'=>$inscription, 'message'=>$message));
+    }
+
+    /**
      * @Route("/afficheLesFormation", name="app_for")
      */
     public function afficheLesFormation()
     {
         $formation = $this->getDoctrine()->getRepository(formation::class)->findAll();
+        $inscription = $this->getDoctrine()->getRepository(inscription::class)->findAll();
         if (!$formation ){
             $message = "Pas de formation";
         }
@@ -202,7 +224,7 @@ class EmployeController extends AbstractController
             $message = null;
         }
         
-        return $this->render('employe/listeformation.html.twig',array('ensFormation'=>$formation, 'message'=>$message));
+        return $this->render('employe/listeformation.html.twig',array('ensFormation'=>$formation, 'message'=>$message, 'ensInscription'=>$inscription));
     }
 
     /**

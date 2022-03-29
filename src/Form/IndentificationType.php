@@ -14,7 +14,7 @@ class IndentificationType extends AbstractType
     {
         $builder
             ->add('login')
-            ->add('mdp')
+            ->add('mdp', SFType\PasswordType::class)
             ->add('submit', SFType\SubmitType::class)
         ;
     }

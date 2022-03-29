@@ -5,35 +5,17 @@
     {% if (message) %}
         {{ message }}
     {% endif %}
-    {% for formation in ensFormation %}
-        Date de début: <b>{{ formation.dateDebut|date("m/d/y") }}</b><br>
-        nombre heure : {{ formation.nbreHeaures }}</br>
-        departement : {{ formation.departement }}</br>
-        resume : {{ formation.resume }}</br>
-        <a href="{{path('app_inscription' , {'id': formation.id})}}">s'inscrire</a></br></br>
-
+    {% for inscription in ensInscription %}
+        {% if (inscription.statut != 'E') %}
+            {% for formation in ensFormation %}
+                Date de début: <b>{{ formation.dateDebut|date("m/d/y") }}</b><br>
+                nombre heure : {{ formation.nbreHeaures }}</br>
+                departement : {{ formation.departement }}</br>
+                resume : {{ formation.resume }}</br>
+                <a href="{{path('app_inscription' , {'id': formation.id})}}">s'inscrire</a></br></br>
+             {% endfor %}
+       {% endif %}
     {% endfor %}
 </div>
-{% if message|length == 0 %}
-           <div id="myCarousel" class="carousel slide" data-ride="carousel">
-              <div class="carousel-inner">
-              {% for formation in ensFormation %}
-              <div class="item">
-              <div class="thumbnail">
-              {# <img src="{{ asset(formation.image) }}" > #}
-              <div class="caption">
-              <p>{{ formation.departement }}</p>
-              </div>
-              </div>
-            </div>
-            {% endfor %}                     
-              </div><!-- End Carousel Inner -->
-              <div class="carousel-controls">
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-              </div>
-            </div><!-- /.carousel -->
-{% else %}
-Prochainement !
-{% endif %}
+
 {% endblock %}
